@@ -1,0 +1,22 @@
+$fontPoppins: 'Poppins';
+
+.custom_btn {
+  background: #1e71ff;
+  border-radius: 8px;
+  font-family: 'Poppins';
+  color: #fff;
+  border: none;
+  width: 7em;
+  height: 3em;
+  cursor: pointer;
+  outline: none;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // &:hover {
+  //   background-color: #fff;
+  //   border: 1px solid #1e71ff;
+  //   color: #1e71ff;
+  // }
+}

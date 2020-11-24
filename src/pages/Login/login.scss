@@ -1,0 +1,52 @@
+$fontMontserrat: 'Montserrat';
+$fontPoppins: 'Poppins';
+
+.loginContainer {
+  margin-top: 4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .greet {
+    font-family: $fontMontserrat;
+    font-weight: 600;
+    font-size: 1.8em;
+    line-height: 1.5em;
+    text-align: center;
+  }
+  .loginForm {
+    background: #ffffff;
+    box-shadow: -1px 1px 4px 2px rgba(0, 0, 0, 0.25);
+    max-width: 35em;
+    width: 90%;
+    padding: 6%;
+    margin-top: 3em;
+
+    .loginErr {
+      color: #931c1c;
+      margin-bottom: 1em;
+      border: 1px solid #931c1c;
+      text-align: center;
+      padding: 0.5em;
+      font-family: $fontMontserrat;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .formCta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .registerLink {
+        font-family: $fontMontserrat;
+        a {
+          font-size: 1em;
+          line-height: 1.5em;
+          color: #1e71ff;
+          font-weight: bold;
+          text-decoration: none;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

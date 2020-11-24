@@ -1,0 +1,29 @@
+$fontMontserrat: 'Montserrat';
+$fontPoppins: 'Poppins';
+
+.formInputContainer {
+  width: 100%;
+  margin-bottom: 2.5em;
+  .inputLabel {
+    display: block;
+    font-family: $fontMontserrat;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 2em;
+    margin-bottom: 0.5em;
+    color: #000000;
+  }
+
+  input {
+    font-family: $fontMontserrat;
+    display: block;
+    background: rgba(151, 151, 151, 0.07);
+    border: 1px solid #5696f4;
+    border-radius: 10px;
+    outline: none;
+    height: 3em;
+    width: 100%;
+    padding: 0 1em;
+    font-size: 1em;
+  }
+}

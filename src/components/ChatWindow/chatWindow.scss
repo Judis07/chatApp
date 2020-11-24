@@ -1,0 +1,142 @@
+$fontMontserrat: 'Montserrat';
+$fontPoppins: 'Poppins';
+
+.chatWindowContainer {
+  width: 100%;
+  .chatScreenHeader {
+    background: #1e71ff;
+    font-family: $fontPoppins;
+    // font-size: 2.5em;
+    // position: sticky;
+    // top: 0;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 4em;
+    height: 10vh;
+
+    .converstionWith {
+      margin-right: 5em;
+    }
+
+    .logOut {
+      font-size: 1em;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+  .chatScreenContent {
+    font-family: $fontMontserrat;
+    height: 80vh;
+    overflow-x: scroll;
+    padding: 4em;
+    .notChatContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 70vh;
+    }
+    .chatConversationContainer {
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+      font-weight: bold;
+      line-height: 2em;
+      font-size: 0.9em;
+
+      .userMsg {
+        justify-content: flex-start;
+        align-self: flex-end;
+        margin-top: 2em;
+        width: 30em;
+        background-color: #788a98;
+        padding: 1em 1.5em;
+        border-radius: 1.5em;
+        border-top-right-radius: 0;
+      }
+      .frdMsg {
+        justify-content: flex-end;
+        margin-top: 2em;
+        align-self: flex-start;
+        width: 30em;
+        background-color: #1e71ff;
+        padding: 1em 1.5em;
+        border-radius: 1.5em;
+        border-top-left-radius: 0;
+      }
+    }
+  }
+
+  .chatScreenFooter {
+    // padding: 2em;
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1000px;
+    .innerContainer {
+      display: flex;
+      background-color: #fff;
+      border-radius: 15px;
+
+      .msgInput {
+        width: 85%;
+        input {
+          width: 100%;
+          border: none;
+          height: 100%;
+          font-family: $fontMontserrat;
+          outline: none;
+          padding: 1em;
+          border-top-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+          &::placeholder {
+            font-weight: bold;
+          }
+        }
+      }
+
+      .sendBtn {
+        width: 15%;
+        button {
+          background: #1e71ff;
+          font-family: $fontPoppins;
+          color: #fff;
+          border: none;
+          width: 100%;
+          height: 3em;
+          cursor: pointer;
+          outline: none;
+          font-weight: bold;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+      }
+    }
+  }
+  //   custom side bard
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  // ::-webkit-scrollbar-track {
+  //   // box-shadow: inset 0 0 5px grey;
+  //   // border-radius: 15px;
+  // }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    // background: #0049ff;
+    background: #0049ff;
+    border-radius: 15px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #80838d;
+  }
+}

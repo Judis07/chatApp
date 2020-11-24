@@ -1,0 +1,98 @@
+$fontMontserrat: 'Montserrat';
+$fontPoppins: 'Poppins';
+
+.sideBarContainer {
+  width: 18em;
+  min-width: 18em;
+  //   border-right: 1px solid black;
+  min-height: 100vh;
+  background: #f3f4f6;
+
+  .sideBarHeader {
+    background: #185bcc;
+    font-family: $fontPoppins;
+    font-size: 2.5em;
+    position: sticky;
+    top: 0;
+    color: #fff;
+    text-align: center;
+    // padding: 0.5em;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chatList {
+    font-family: $fontMontserrat;
+    // overflow-y: hidden;
+    overflow-x: scroll;
+    height: 90vh;
+    padding-top: 5em;
+
+    .friendCard {
+      cursor: pointer;
+      display: flex;
+      padding: 2em 1em;
+      border-bottom: 1px solid #80808040;
+
+      .friendAvatar {
+        width: 5em;
+        height: 2.5em;
+        background: #185bcc;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        margin-right: 0.8em;
+        color: #fff;
+      }
+      .friendEmail {
+        font-weight: bold;
+        font-size: 1em;
+        line-height: 1.2em;
+        // letter-spacing: 1px;
+      }
+      .friendMsg {
+        font-size: 0.8em;
+        margin-top: 0.5em;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+    .selected {
+      background: #175bcc;
+      color: white;
+      .friendAvatar {
+        background-color: #fff;
+        color: #185bcc;
+      }
+    }
+  }
+
+  //   custom side bard
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  // ::-webkit-scrollbar-track {
+  //   // box-shadow: inset 0 0 5px grey;
+  //   // border-radius: 15px;
+  // }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    // background: #0049ff;
+    background: #0049ff;
+    border-radius: 15px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #80838d;
+  }
+}

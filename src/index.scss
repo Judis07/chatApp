@@ -1,0 +1,29 @@
+*,
+:after,
+:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.appHeader {
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  font-size: 3em;
+  line-height: 22px;
+  letter-spacing: 1px;
+  color: #1e71ff;
+  padding: 1em 0;
+  border-bottom: 1px solid #9b9b9b;
+}
+
+.dashboardContainer {
+  display: flex;
+  background: #edf0f9;
+}
