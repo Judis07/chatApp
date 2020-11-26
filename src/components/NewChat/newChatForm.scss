@@ -1,0 +1,49 @@
+$fontMontserrat: 'Montserrat';
+$fontPoppins: 'Poppins';
+
+.newChatFormContainer {
+  .modalTitle {
+    font-family: $fontPoppins;
+    font-size: 1.5em;
+    margin-bottom: 1em;
+  }
+  label {
+    font-family: $fontMontserrat;
+    font-weight: bold;
+    margin-bottom: 1em;
+    display: block;
+  }
+  .css-yk16xz-control {
+    font-family: $fontMontserrat;
+  }
+  .newChatFormContainer {
+    margin: 2em 0;
+  }
+  .friendMsgContainer {
+    margin: 2em 0;
+
+    textarea {
+      width: 100%;
+      height: 10em;
+      resize: none;
+      border: 1px solid hsl(0, 0%, 80%);
+      font-family: $fontMontserrat;
+      outline: none;
+      padding: 1em;
+    }
+  }
+  .sendBtnContainer {
+    button {
+      display: block;
+      width: 100%;
+      background-color: #0049ff;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: $fontMontserrat;
+      height: 3em;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+}

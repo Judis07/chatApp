@@ -27,29 +27,17 @@ $fontPoppins: 'Poppins';
     display: flex;
     // justify-content: center;
     width: 100%;
-    input {
-      border: none;
-      background: #788a98;
-      font-family: $fontPoppins;
-      font-size: 0.8em;
-      color: white;
-      outline: none;
-      font-weight: 500;
-      padding: 0 2em;
-      width: 70%;
 
-      &::placeholder {
-        color: white;
-      }
-    }
     .newChatBtn {
+      height: 100%;
       font-family: $fontPoppins;
       background: #0049ff;
-      width: 30%;
+      width: 100%;
       outline: none;
       border: none;
       color: white;
       cursor: pointer;
+      font-weight: bold;
     }
   }
 

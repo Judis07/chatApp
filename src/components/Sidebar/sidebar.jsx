@@ -1,5 +1,6 @@
-import LinearProgress from '@material-ui/core/LinearProgress';
 import { useState } from 'react';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import NewChat from '../NewChat/newChat';
 import './sideBar.scss';
 
 const SideBar = (props) => {
@@ -22,6 +23,11 @@ const SideBar = (props) => {
       return chats;
     }
   };
+
+  const newChatBtnFn = (openFunc) => {
+    openFunc();
+  };
+
   // const filteredChatByMessages = () => {
   //   if (chats.length) {
   //     console.log('chats', chats);
@@ -45,13 +51,7 @@ const SideBar = (props) => {
       </div>
 
       <div className="ctaBox">
-        <input
-          type="text"
-          value={searchChatByUser}
-          placeholder="Type the full user email"
-          onChange={(event) => setSearchChatByUser(event.target.value.trim(''))}
-        />
-        <button className="newChatBtn">+ New Chat</button>
+        <NewChat />
       </div>
 
       <div className="chatList">

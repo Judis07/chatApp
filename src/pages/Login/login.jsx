@@ -11,7 +11,7 @@ import './login.scss';
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loginErr, setLoginErr] = useState(false);
+  const [loginErr, setLoginErr] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -38,12 +38,12 @@ const Login = (props) => {
       const res = await auth.signInWithEmailAndPassword(email, password);
       console.log('login res', res.user.email);
       dispatch(setCurrentUser(res.user.email));
-      setLoginErr(false);
+      setLoginErr('');
       setIsLoading(false);
       props.history.push('/dashboard');
     } catch (err) {
       console.log('err fetch login info', err);
-      setLoginErr(true);
+      setLoginErr(err.message);
       setIsLoading(false);
     }
   };
@@ -56,7 +56,7 @@ const Login = (props) => {
 
         <form onSubmit={submitForm} className="loginForm">
           <div className="innerForm">
-            {loginErr && <div className="loginErr">Incorrect login info!</div>}
+            {loginErr && <div className="loginErr">{loginErr}</div>}
 
             <FormInput
               type="email"
