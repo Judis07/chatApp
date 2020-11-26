@@ -106,6 +106,8 @@ const Dashboard = (props) => {
         newChatFormVisible={newChatFormVisible}
         sumbitMsgFn={sumbitMsg}
         signoutFn={signout}
+        selectedChat={selectedChat}
+        messageReadFn={messageRead}
       />
     </div>
   );

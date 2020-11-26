@@ -3,7 +3,15 @@ import EmptyChatWindow from '../EmptyChatWindow/emptyChatWindow';
 import './chatWindow.scss';
 
 const ChatWindow = (props) => {
-  const { newChatFormVisible, chat, userEmail, sumbitMsgFn, signoutFn } = props;
+  const {
+    newChatFormVisible,
+    chat,
+    userEmail,
+    sumbitMsgFn,
+    signoutFn,
+    selectedChat,
+    messageReadFn,
+  } = props;
 
   const [yourMsg, setYourMsg] = useState('');
 
@@ -77,6 +85,7 @@ const ChatWindow = (props) => {
                 placeholder="Type your message.."
                 id="message-input"
                 onKeyUp={(e) => userTyping(e)}
+                onFocus={() => messageReadFn(selectedChat)}
               />
             </div>
             <div className="sendBtn">
