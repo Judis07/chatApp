@@ -62,6 +62,12 @@ $fontPoppins: 'Poppins';
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
+      .newMsgDot {
+        background-color: #ff4c00b5;
+        width: 1em;
+        height: 0.5em;
+        border-radius: 50px;
+      }
     }
     .selected {
       background: #175bcc;

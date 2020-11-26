@@ -34,10 +34,33 @@ const Dashboard = (props) => {
   //   console.log('new msg btn clicked');
   // };
 
-  const selectChatFn = (index) => {
-    console.log('select chat func clicked', index);
+  const selectChatFn = async (index) => {
+    // console.log('select chat func clicked', index);
     setSelectedChat(index);
     setNewChatFormVisible(true);
+    messageRead(index);
+  };
+
+  const isUserTheSender = (chatIndex) => {
+    return (
+      chats[chatIndex].messages[chats[chatIndex].messages.length - 1].sender !==
+      email
+    );
+  };
+
+  const messageRead = (index) => {
+    const docKey = buildDocKey(
+      chats[index].users.filter((user) => user !== email)[0]
+    );
+
+    if (isUserTheSender(index)) {
+      firestore.collection('chats').doc(docKey).update({
+        receiverHasRead: true,
+      });
+      // console.log('friend msg');
+    } else {
+      // console.log('latest msg was of me');
+    }
   };
 
   const signout = () => {

@@ -7,6 +7,10 @@ const SideBar = (props) => {
     selectChatFn(chatIndex);
   };
 
+  const userIsSender = (chat) => {
+    return chat.messages[chat.messages.length - 1].sender === userEmail;
+  };
+
   return (
     <div className="sideBarContainer">
       <div className="sideBarHeader">
@@ -37,6 +41,9 @@ const SideBar = (props) => {
                     {chat.messages[chat.messages.length - 1].message}
                   </div>
                 </div>
+                {chat.receiverHasRead === false && !userIsSender(chat) && (
+                  <div className="newMsgDot"></div>
+                )}
               </div>
             );
           })}
