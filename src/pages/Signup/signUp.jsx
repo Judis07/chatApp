@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { auth, firestore } from '../../firebase';
 import { Link } from 'react-router-dom';
 import AppHeader from '../../components/AppHeader/appHeader';
 import Button from '../../components/Button/button';
 import FormInput from '../../components/FormInput/formInput';
+import { setCurrentUser } from '../../redux/user/userAction';
 import './signUp.scss';
 
 const SignUp = (props) => {
@@ -12,6 +14,8 @@ const SignUp = (props) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [signUpErr, setSignUpErr] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const inputChange = (event) => {
     const { value, name } = event.target;
@@ -41,8 +45,8 @@ const SignUp = (props) => {
 
   const submitForm = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
     if (isPaswordMatching()) {
+      setIsLoading(true);
       // console.log(email, password, confirmPassword);
 
       auth.createUserWithEmailAndPassword(email, password).then(
@@ -56,11 +60,15 @@ const SignUp = (props) => {
             .set(userObj)
             .then(
               () => {
+                setIsLoading(false);
                 setSignUpErr(false);
+                dispatch(setCurrentUser(res.user.email));
+
                 props.history.push('/dashboard');
               },
               (dbErr) => {
-                console.log(dbErr);
+                console.log('db err', dbErr);
+                setIsLoading(false);
                 setSignUpErr(false);
 
                 setSignUpErr('Failed to register user.Please try again later.');
@@ -68,8 +76,9 @@ const SignUp = (props) => {
             );
         },
         (authErr) => {
-          console.log(authErr);
-          setSignUpErr('Failed to register user.Please try again later.');
+          setIsLoading(false);
+          console.log('auth err', authErr.message);
+          setSignUpErr(authErr.message);
         }
       );
       console.log('submitting');

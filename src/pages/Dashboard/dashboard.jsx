@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import ChatWindow from '../../components/ChatWindow/chatWindow';
 import SideBar from '../../components/Sidebar/sidebar';
 import { auth, firestore, FieldValue } from '../../firebase';
+import { setCurrentUser } from '../../redux/user/userAction';
 
 const Dashboard = (props) => {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState(null);
   const [newChatFormVisible, setNewChatFormVisible] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
   const [chats, setChats] = useState([]);
 
   useEffect(() => {
-    console.log('my props', props);
     auth.onAuthStateChanged(async (user) => {
       if (!user) {
         props.history.push('/login');
@@ -37,7 +40,11 @@ const Dashboard = (props) => {
     setNewChatFormVisible(true);
   };
 
-  const signout = () => auth.signOut();
+  const signout = () => {
+    dispatch(setCurrentUser(null));
+
+    auth.signOut();
+  };
 
   const buildDocKey = (friend) => {
     return [email, friend].sort().join(':');
@@ -64,7 +71,6 @@ const Dashboard = (props) => {
 
   return (
     <div className="dashboardContainer">
-      {console.log(chats)}
       <SideBar
         chats={chats}
         userEmail={email}

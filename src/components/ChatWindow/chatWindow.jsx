@@ -41,7 +41,7 @@ const ChatWindow = (props) => {
           </div>
         )}
 
-        <div className="logOut" onClick={signoutFn}>
+        <div className="logOut" onClick={() => signoutFn()}>
           Log Out
         </div>
       </div>

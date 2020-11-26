@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { auth } from '../../firebase';
 import { Link } from 'react-router-dom';
 import AppHeader from '../../components/AppHeader/appHeader';
 import Button from '../../components/Button/button';
 import FormInput from '../../components/FormInput/formInput';
+import { setCurrentUser } from '../../redux/user/userAction';
 import './login.scss';
 
 const Login = (props) => {
@@ -11,6 +13,8 @@ const Login = (props) => {
   const [password, setPassword] = useState('');
   const [loginErr, setLoginErr] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const inputChange = (event) => {
     const { value, name } = event.target;
@@ -32,7 +36,8 @@ const Login = (props) => {
     // console.log(email, password);
     try {
       const res = await auth.signInWithEmailAndPassword(email, password);
-      // console.log('login res', res);
+      console.log('login res', res.user.email);
+      dispatch(setCurrentUser(res.user.email));
       setLoginErr(false);
       setIsLoading(false);
       props.history.push('/dashboard');
