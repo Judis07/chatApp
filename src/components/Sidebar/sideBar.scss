@@ -22,13 +22,43 @@ $fontPoppins: 'Poppins';
     align-items: center;
     justify-content: center;
   }
+  .ctaBox {
+    height: 5vh;
+    display: flex;
+    // justify-content: center;
+    width: 100%;
+    input {
+      border: none;
+      background: #788a98;
+      font-family: $fontPoppins;
+      font-size: 0.8em;
+      color: white;
+      outline: none;
+      font-weight: 500;
+      padding: 0 2em;
+      width: 70%;
+
+      &::placeholder {
+        color: white;
+      }
+    }
+    .newChatBtn {
+      font-family: $fontPoppins;
+      background: #0049ff;
+      width: 30%;
+      outline: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+  }
 
   .chatList {
     font-family: $fontMontserrat;
     // overflow-y: hidden;
     overflow-x: scroll;
-    height: 90vh;
-    padding-top: 5em;
+    height: 85vh;
+    // padding-top: 5em;
 
     .friendCard {
       cursor: pointer;
