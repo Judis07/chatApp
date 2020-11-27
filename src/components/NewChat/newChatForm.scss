@@ -46,4 +46,9 @@ $fontPoppins: 'Poppins';
       font-weight: bold;
     }
   }
+  .errMsg {
+    color: red;
+    font-size: 0.7em;
+    font-family: $fontMontserrat;
+  }
 }

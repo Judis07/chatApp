@@ -99,6 +99,7 @@ const Dashboard = (props) => {
         userEmail={email}
         selectedChat={selectedChat}
         selectChatFn={selectChatFn}
+        sumbitMsgFn={sumbitMsg}
       />
       <ChatWindow
         userEmail={email}

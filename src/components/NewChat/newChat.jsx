@@ -3,7 +3,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import NewChatForm from './newChatForm';
 
@@ -12,6 +11,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 });
 
 const NewChat = (props) => {
+  const { selectChatFn, chats, sumbitMsgFn } = props;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -38,7 +38,12 @@ const NewChat = (props) => {
       >
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <NewChatForm />
+            <NewChatForm
+              handleClose={handleClose}
+              selectChatFn={selectChatFn}
+              chats={chats}
+              sumbitMsgFn={sumbitMsgFn}
+            />
           </DialogContentText>
         </DialogContent>
         <DialogActions></DialogActions>

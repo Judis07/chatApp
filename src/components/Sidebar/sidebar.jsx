@@ -1,44 +1,13 @@
-import { useState } from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import NewChat from '../NewChat/newChat';
 import './sideBar.scss';
 
 const SideBar = (props) => {
-  const { chats, userEmail, selectedChat, selectChatFn } = props;
-
-  const [searchChatByUser, setSearchChatByUser] = useState('');
+  const { chats, userEmail, selectedChat, selectChatFn, sumbitMsgFn } = props;
 
   const selectChat = (chatIndex) => {
     selectChatFn(chatIndex);
   };
-
-  const filteredChat = () => {
-    if (chats.length) {
-      console.log('chats', chats);
-      const result = chats.filter((chat) =>
-        chat.users.includes(searchChatByUser)
-      );
-
-      if (result.length) return result;
-      return chats;
-    }
-  };
-
-  const newChatBtnFn = (openFunc) => {
-    openFunc();
-  };
-
-  // const filteredChatByMessages = () => {
-  //   if (chats.length) {
-  //     console.log('chats', chats);
-  //     const result = chats.filter((chat) =>
-  //       chat.messages.some((msg) => msg.message.startsWith(searchChatByUser))
-  //     );
-
-  //     if (result.length) return result;
-  //     return chats;
-  //   }
-  // };
 
   const userIsSender = (chat) => {
     return chat.messages[chat.messages.length - 1].sender === userEmail;
@@ -51,13 +20,17 @@ const SideBar = (props) => {
       </div>
 
       <div className="ctaBox">
-        <NewChat />
+        <NewChat
+          selectChatFn={selectChatFn}
+          chats={chats}
+          sumbitMsgFn={sumbitMsgFn}
+        />
       </div>
 
       <div className="chatList">
         {/* {console.log(filteredChat())} */}
         {chats.length ? (
-          filteredChat().map((chat, index) => {
+          chats.map((chat, index) => {
             return (
               <div
                 key={index}

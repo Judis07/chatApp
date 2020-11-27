@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { AsyncPaginate } from 'react-select-async-paginate';
-import { firestore } from '../../firebase';
+import { firestore, auth } from '../../firebase';
 import './newChatForm.scss';
 
-const NewChatForm = () => {
-  const [friendEmail, setFriendEmail] = useState('');
+const NewChatForm = (props) => {
+  const { handleClose, selectChatFn, chats, sumbitMsgFn } = props;
 
+  const [friendEmail, setFriendEmail] = useState('');
   const [msgToFriend, setMsgToFriend] = useState('');
+  const [userErr, setUserErr] = useState(false);
+  const [msgErr, setMsgErr] = useState(false);
 
   const sleep = (ms) =>
     new Promise((resolve) => {
@@ -55,9 +58,76 @@ const NewChatForm = () => {
     };
   };
 
-  const sendMsg = () => {
-    console.log('friendEmail', friendEmail);
-    console.log('msgToFriend', msgToFriend);
+  const buildDocKey = () => {
+    return [auth.currentUser.email, friendEmail].sort().join(':');
+  };
+
+  const chatExistsFn = async () => {
+    const dockey = buildDocKey();
+    const chat = await firestore.collection('chats').doc(dockey).get();
+
+    console.log(chat.exists);
+    return chat.exists;
+  };
+
+  const createChat = async () => {
+    const docKey = buildDocKey();
+
+    await firestore
+      .collection('chats')
+      .doc(docKey)
+      .set({
+        receiverHasRead: false,
+        users: [auth.currentUser.email, friendEmail],
+        messages: [
+          {
+            message: msgToFriend,
+            sender: auth.currentUser.email,
+            timestamp: Date.now(),
+          },
+        ],
+      });
+
+    selectChatFn(chats.length - 1);
+  };
+
+  const goToChat = async () => {
+    const dockey = buildDocKey();
+
+    const chat = chats.find((chat) =>
+      dockey.split(':').every((user) => chat.users.includes(user))
+    );
+
+    await selectChatFn(chats.indexOf(chat));
+    sumbitMsgFn(msgToFriend);
+    // console.log('selectedChat', selectedChat);
+    // sumbitMsg(msg);
+    // this.props.goToChatFn(this.buildDocKey(), this.state.messageToFriend);
+    console.log('chat exits so continuing');
+  };
+
+  const sendMsg = async () => {
+    if (friendEmail === '' && msgToFriend === '') {
+      setUserErr(true);
+      setMsgErr(true);
+    } else if (friendEmail === '') {
+      setUserErr(true);
+      setUserErr(false);
+    } else if (msgToFriend === '') {
+      setMsgErr(true);
+      setUserErr(false);
+    } else {
+      console.log('friendEmail', friendEmail);
+      console.log('msgToFriend', msgToFriend);
+
+      const chatExists = await chatExistsFn();
+      chatExists ? goToChat() : createChat();
+      setUserErr(false);
+      setMsgErr(false);
+      setFriendEmail('');
+      setMsgToFriend('');
+      handleClose();
+    }
   };
 
   return (
@@ -67,7 +137,6 @@ const NewChatForm = () => {
         <label>Friend's Email:</label>
         <AsyncPaginate
           className="usersInput"
-          //   value={friendEmail}
           loadOptions={loadOptions}
           closeMenuOnSelect={true}
           isClearable={true}
@@ -83,15 +152,21 @@ const NewChatForm = () => {
             }
           }}
         />
+
+        {userErr && (
+          <div className="errMsg">Please choose a user to send a message</div>
+        )}
       </div>
       <div className="friendMsgContainer">
         <label>Message to friend:</label>
+
         <textarea
           value={msgToFriend}
           onChange={(event) => {
             setMsgToFriend(event.target.value);
           }}
         ></textarea>
+        {msgErr && <div className="errMsg">This field can't be blank</div>}
       </div>
 
       <div className="sendBtnContainer">
