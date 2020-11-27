@@ -1,31 +1,37 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import ChatWindow from '../../components/ChatWindow/chatWindow';
 import SideBar from '../../components/Sidebar/sidebar';
 import { auth, firestore, FieldValue } from '../../firebase';
 import { setCurrentUser } from '../../redux/user/userAction';
+import { getChatsFn } from '../../redux/chats/chatsAction';
 
 const Dashboard = (props) => {
   const dispatch = useDispatch();
 
+  const chats = useSelector((state) => state.chats.chats);
+
   const [email, setEmail] = useState(null);
   const [newChatFormVisible, setNewChatFormVisible] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
-  const [chats, setChats] = useState([]);
+  // const [chats, setChats] = useState([]);
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (!user) {
         props.history.push('/login');
       } else {
-        await firestore
-          .collection('chats')
-          .where('users', 'array-contains', user.email)
-          .onSnapshot(async (res) => {
-            const userChats = res.docs.map((doc) => doc.data());
-            setEmail(user.email);
-            await setChats(userChats);
-          });
+        // await firestore
+        //   .collection('chats')
+        //   .where('users', 'array-contains', user.email)
+        //   .onSnapshot(async (res) => {
+        //     const userChats = res.docs.map((doc) => doc.data());
+        //     setEmail(user.email);
+        //     await setChats(userChats);
+        //   });
+        setEmail(user.email);
+        dispatch(getChatsFn());
       }
     });
   }, []);
@@ -89,6 +95,7 @@ const Dashboard = (props) => {
           timestamp: Date.now(),
         }),
         receiverHasRead: false,
+        createAt: Date.now(),
       });
   };
 

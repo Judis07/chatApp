@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import EmptyChatWindow from '../EmptyChatWindow/emptyChatWindow';
+import { logOutUser } from '../../redux/user/userAction';
+
 import './chatWindow.scss';
 
 const ChatWindow = (props) => {
@@ -8,12 +11,13 @@ const ChatWindow = (props) => {
     chat,
     userEmail,
     sumbitMsgFn,
-    signoutFn,
     selectedChat,
     messageReadFn,
   } = props;
 
   const [yourMsg, setYourMsg] = useState('');
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let chatView = document.getElementById('chatview-container');
@@ -49,7 +53,7 @@ const ChatWindow = (props) => {
           </div>
         )}
 
-        <div className="logOut" onClick={() => signoutFn()}>
+        <div className="logOut" onClick={() => dispatch(logOutUser())}>
           Log Out
         </div>
       </div>

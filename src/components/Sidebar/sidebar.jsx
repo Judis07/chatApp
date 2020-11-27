@@ -1,8 +1,12 @@
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { useDispatch } from 'react-redux';
+import { buildUserDocKeyFn } from '../../redux/user/userAction';
 import NewChat from '../NewChat/newChat';
 import './sideBar.scss';
 
 const SideBar = (props) => {
+  const dispatch = useDispatch();
+
   const { chats, userEmail, selectedChat, selectChatFn, sumbitMsgFn } = props;
 
   const selectChat = (chatIndex) => {
@@ -11,6 +15,10 @@ const SideBar = (props) => {
 
   const userIsSender = (chat) => {
     return chat.messages[chat.messages.length - 1].sender === userEmail;
+  };
+
+  const getFriendEmail = (users) => {
+    return users.filter((user) => user !== userEmail)[0];
   };
 
   return (
@@ -37,7 +45,13 @@ const SideBar = (props) => {
                 className={
                   selectedChat === index ? 'friendCard selected' : 'friendCard'
                 }
-                onClick={() => selectChat(index)}
+                onClick={() => {
+                  // console.log(getFriendEmail(chat.users));
+                  dispatch(
+                    buildUserDocKeyFn(userEmail, getFriendEmail(chat.users))
+                  );
+                  selectChat(index);
+                }}
               >
                 <div className="friendAvatar">
                   {chat.users

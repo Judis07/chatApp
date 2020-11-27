@@ -1,5 +1,3 @@
-// impoSwichoute, BrowserRouter as Router } from 'react-router-dom';
-
 import { useSelector } from 'react-redux';
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import Login from './pages/Login/login';
