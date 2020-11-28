@@ -26,6 +26,10 @@ const chatsReducer = (state = INITIAL_STATE, action) => {
         loading: false,
         error: true,
       };
+    case ChatActionTypes.SEND_MESSAGE:
+      return {
+        ...state,
+      };
 
     default:
       return state;

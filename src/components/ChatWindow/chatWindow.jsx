@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import EmptyChatWindow from '../EmptyChatWindow/emptyChatWindow';
 import { logOutUser } from '../../redux/user/userAction';
+import { sendMsgFn } from '../../redux/chats/chatsAction';
 
 import './chatWindow.scss';
 
@@ -9,8 +10,8 @@ const ChatWindow = (props) => {
   const {
     newChatFormVisible,
     chat,
-    userEmail,
-    sumbitMsgFn,
+    // userEmail,
+    // sumbitMsgFn,
     selectedChat,
     messageReadFn,
   } = props;
@@ -18,6 +19,9 @@ const ChatWindow = (props) => {
   const [yourMsg, setYourMsg] = useState('');
 
   const dispatch = useDispatch();
+
+  const docKey = useSelector((state) => state.user.docKey);
+  const userEmail = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     let chatView = document.getElementById('chatview-container');
@@ -39,7 +43,8 @@ const ChatWindow = (props) => {
 
   const sendBtnClick = () => {
     console.log(yourMsg);
-    sumbitMsgFn(yourMsg);
+    // sumbitMsgFn(yourMsg);
+    dispatch(sendMsgFn(docKey, userEmail, yourMsg));
     document.getElementById('message-input').value = '';
   };
 

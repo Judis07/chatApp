@@ -11,29 +11,36 @@ const Dashboard = (props) => {
   const dispatch = useDispatch();
 
   const chats = useSelector((state) => state.chats.chats);
+  const userEmail = useSelector((state) => state.user.currentUser);
 
   const [email, setEmail] = useState(null);
   const [newChatFormVisible, setNewChatFormVisible] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
   // const [chats, setChats] = useState([]);
 
+  // useEffect(() => {
+  //   auth.onAuthStateChanged(async (user) => {
+  //     if (!user) {
+  //       props.history.push('/login');
+  //     } else {
+  //       // await firestore
+  //       //   .collection('chats')
+  //       //   .where('users', 'array-contains', user.email)
+  //       //   .onSnapshot(async (res) => {
+  //       //     const userChats = res.docs.map((doc) => doc.data());
+  //       //     setEmail(user.email);
+  //       //     await setChats(userChats);
+  //       //   });
+  //       setEmail(user.email);
+  //       dispatch(getChatsFn());
+  //     }
+  //   });
+
+  // }, []);
+
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (!user) {
-        props.history.push('/login');
-      } else {
-        // await firestore
-        //   .collection('chats')
-        //   .where('users', 'array-contains', user.email)
-        //   .onSnapshot(async (res) => {
-        //     const userChats = res.docs.map((doc) => doc.data());
-        //     setEmail(user.email);
-        //     await setChats(userChats);
-        //   });
-        setEmail(user.email);
-        dispatch(getChatsFn());
-      }
-    });
+    setEmail(userEmail);
+    dispatch(getChatsFn());
   }, []);
 
   // const newMsg = () => {

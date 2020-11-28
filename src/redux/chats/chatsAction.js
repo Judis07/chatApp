@@ -1,4 +1,4 @@
-import { auth, firestore } from '../../firebase';
+import { auth, firestore, FieldValue } from '../../firebase';
 import { ChatActionTypes } from './chatsActionTypes';
 
 export const getChats = (chats) => ({
@@ -30,5 +30,23 @@ export const getChatsFn = () => {
         dispatch(errGettingChats());
       }
     });
+  };
+};
+
+export const sendMsgFn = (docKey, userEmail, msg) => {
+  return (dispatch) => {
+    firestore
+      .collection('chats')
+      .doc(docKey)
+      .update({
+        messages: FieldValue.arrayUnion({
+          sender: userEmail,
+          message: msg,
+          timestamp: Date.now(),
+        }),
+        receiverHasRead: false,
+        createAt: Date.now(),
+      });
+    dispatch({ type: ChatActionTypes.SEND_MESSAGE });
   };
 };
