@@ -46,6 +46,15 @@ $fontPoppins: 'Poppins';
     // overflow-y: hidden;
     overflow-x: scroll;
     height: 85vh;
+
+    .userName {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #0049ff;
+      font-weight: bold;
+      padding: 1em;
+    }
     // padding-top: 5em;
 
     .friendCard {

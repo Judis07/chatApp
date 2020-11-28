@@ -1,5 +1,5 @@
-import LinearProgress from '@material-ui/core/LinearProgress';
 import { useDispatch } from 'react-redux';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { buildUserDocKeyFn } from '../../redux/user/userAction';
 import NewChat from '../NewChat/newChat';
 import './sideBar.scss';
@@ -37,6 +37,7 @@ const SideBar = (props) => {
 
       <div className="chatList">
         {/* {console.log(filteredChat())} */}
+        <div className="userName">You: {userEmail}</div>
         {chats.length ? (
           chats.map((chat, index) => {
             return (

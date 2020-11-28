@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { AsyncPaginate } from 'react-select-async-paginate';
 import { firestore, auth } from '../../firebase';
 import './newChatForm.scss';
 
 const NewChatForm = (props) => {
   const { handleClose, selectChatFn, chats, sumbitMsgFn } = props;
+
+  const userEmail = useSelector((state) => state.user.currentUser);
 
   const [friendEmail, setFriendEmail] = useState('');
   const [msgToFriend, setMsgToFriend] = useState('');
@@ -26,12 +29,14 @@ const NewChatForm = (props) => {
     if (!search && prevOptions.length === 0) {
       const usersSnapShot = await firestore.collection('users').get();
 
-      filteredOptions = usersSnapShot.docs.map((doc) => {
-        return {
-          value: doc.data().email,
-          label: doc.data().email,
-        };
-      });
+      filteredOptions = usersSnapShot.docs
+        .filter((user) => user.data().email !== userEmail)
+        .map((doc) => {
+          return {
+            value: doc.data().email,
+            label: doc.data().email,
+          };
+        });
     } else {
       const searchLower = search.toLowerCase();
 
