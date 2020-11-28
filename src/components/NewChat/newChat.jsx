@@ -11,7 +11,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 });
 
 const NewChat = (props) => {
-  const { selectChatFn, chats, sumbitMsgFn } = props;
+  const { selectChatFn, chats } = props;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -42,7 +42,6 @@ const NewChat = (props) => {
               handleClose={handleClose}
               selectChatFn={selectChatFn}
               chats={chats}
-              sumbitMsgFn={sumbitMsgFn}
             />
           </DialogContentText>
         </DialogContent>

@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AsyncPaginate } from 'react-select-async-paginate';
 import { firestore, auth } from '../../firebase';
+import { sendMsgFn } from '../../redux/chats/chatsAction';
+
 import './newChatForm.scss';
 
 const NewChatForm = (props) => {
-  const { handleClose, selectChatFn, chats, sumbitMsgFn } = props;
+  const { handleClose, selectChatFn, chats } = props;
 
+  const dispatch = useDispatch();
+  const docKey = useSelector((state) => state.user.docKey);
   const userEmail = useSelector((state) => state.user.currentUser);
 
   const [friendEmail, setFriendEmail] = useState('');
@@ -104,7 +108,8 @@ const NewChatForm = (props) => {
     );
 
     await selectChatFn(chats.indexOf(chat));
-    sumbitMsgFn(msgToFriend);
+    // sumbitMsgFn(msgToFriend);
+    dispatch(sendMsgFn(docKey, userEmail, msgToFriend));
     // console.log('selectedChat', selectedChat);
     // sumbitMsg(msg);
     // this.props.goToChatFn(this.buildDocKey(), this.state.messageToFriend);

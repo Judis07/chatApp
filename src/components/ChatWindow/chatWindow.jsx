@@ -11,7 +11,6 @@ const ChatWindow = (props) => {
     newChatFormVisible,
     chat,
     // userEmail,
-    // sumbitMsgFn,
     selectedChat,
     messageReadFn,
   } = props;

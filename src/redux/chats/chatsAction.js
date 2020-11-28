@@ -45,7 +45,7 @@ export const sendMsgFn = (docKey, userEmail, msg) => {
           timestamp: Date.now(),
         }),
         receiverHasRead: false,
-        createAt: Date.now(),
+        createdAt: Date.now(),
       });
     dispatch({ type: ChatActionTypes.SEND_MESSAGE });
   };

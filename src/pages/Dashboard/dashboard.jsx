@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ChatWindow from '../../components/ChatWindow/chatWindow';
 import SideBar from '../../components/Sidebar/sidebar';
-import { auth, firestore, FieldValue } from '../../firebase';
+import { auth, firestore } from '../../firebase';
 import { setCurrentUser } from '../../redux/user/userAction';
 import { getChatsFn } from '../../redux/chats/chatsAction';
 
@@ -86,26 +86,6 @@ const Dashboard = (props) => {
     return [email, friend].sort().join(':');
   };
 
-  const sumbitMsg = (msg) => {
-    const docKey = buildDocKey(
-      chats[selectedChat].users.filter((user) => user !== email)[0]
-    );
-    // console.log(docKey);
-
-    firestore
-      .collection('chats')
-      .doc(docKey)
-      .update({
-        messages: FieldValue.arrayUnion({
-          sender: email,
-          message: msg,
-          timestamp: Date.now(),
-        }),
-        receiverHasRead: false,
-        createAt: Date.now(),
-      });
-  };
-
   return (
     <div className="dashboardContainer">
       <SideBar
@@ -113,13 +93,12 @@ const Dashboard = (props) => {
         userEmail={email}
         selectedChat={selectedChat}
         selectChatFn={selectChatFn}
-        sumbitMsgFn={sumbitMsg}
+        // sumbitMsgFn={sumbitMsg}
       />
       <ChatWindow
         userEmail={email}
         chat={chats[selectedChat]}
         newChatFormVisible={newChatFormVisible}
-        sumbitMsgFn={sumbitMsg}
         signoutFn={signout}
         selectedChat={selectedChat}
         messageReadFn={messageRead}

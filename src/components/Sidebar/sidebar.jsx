@@ -7,7 +7,7 @@ import './sideBar.scss';
 const SideBar = (props) => {
   const dispatch = useDispatch();
 
-  const { chats, userEmail, selectedChat, selectChatFn, sumbitMsgFn } = props;
+  const { chats, userEmail, selectedChat, selectChatFn } = props;
 
   const selectChat = (chatIndex) => {
     selectChatFn(chatIndex);
@@ -21,6 +21,13 @@ const SideBar = (props) => {
     return users.filter((user) => user !== userEmail)[0];
   };
 
+  if (chats.length) {
+    const result = chats.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    console.log('my chats', result);
+  }
+
   return (
     <div className="sideBarContainer">
       <div className="sideBarHeader">
@@ -28,11 +35,7 @@ const SideBar = (props) => {
       </div>
 
       <div className="ctaBox">
-        <NewChat
-          selectChatFn={selectChatFn}
-          chats={chats}
-          sumbitMsgFn={sumbitMsgFn}
-        />
+        <NewChat selectChatFn={selectChatFn} chats={chats} />
       </div>
 
       <div className="chatList">
@@ -40,6 +43,8 @@ const SideBar = (props) => {
         <div className="userName">You: {userEmail}</div>
         {chats.length ? (
           chats.map((chat, index) => {
+            const chatTime = new Date(chat.createdAt).toLocaleString();
+            // console.log(chatTime);
             return (
               <div
                 key={index}
@@ -65,6 +70,7 @@ const SideBar = (props) => {
                   </div>
                   <div className="friendMsg">
                     {chat.messages[chat.messages.length - 1].message}
+                    <div>{chatTime}</div>
                   </div>
                 </div>
                 {chat.receiverHasRead === false && !userIsSender(chat) && (
