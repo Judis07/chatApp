@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AsyncPaginate } from 'react-select-async-paginate';
 import { firestore, auth } from '../../firebase';
 import { sendMsgFn } from '../../redux/chats/chatsAction';
+import { buildUserDocKeyFn } from '../../redux/user/userAction';
 
 import './newChatForm.scss';
 
@@ -157,6 +158,7 @@ const NewChatForm = (props) => {
             if (selectedOption) {
               console.log('this is the selected option', selectedOption.value);
               setFriendEmail(selectedOption.value);
+              // dispatch(buildUserDocKeyFn(userEmail, selectedOption.value));
             } else {
               setFriendEmail('');
             }

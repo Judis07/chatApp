@@ -1,13 +1,18 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { buildUserDocKeyFn } from '../../redux/user/userAction';
+import { chatSelectFn } from '../../redux/chats/chatsAction';
 import NewChat from '../NewChat/newChat';
 import './sideBar.scss';
 
 const SideBar = (props) => {
   const dispatch = useDispatch();
 
-  const { chats, userEmail, selectedChat, selectChatFn } = props;
+  const selectedChatIndex = useSelector(
+    (state) => state.chats.selectedChatIndex
+  );
+
+  const { chats, userEmail, selectChatFn } = props;
 
   const selectChat = (chatIndex) => {
     selectChatFn(chatIndex);
@@ -49,13 +54,15 @@ const SideBar = (props) => {
               <div
                 key={index}
                 className={
-                  selectedChat === index ? 'friendCard selected' : 'friendCard'
+                  selectedChatIndex === index
+                    ? 'friendCard selected'
+                    : 'friendCard'
                 }
                 onClick={() => {
-                  // console.log(getFriendEmail(chat.users));
                   dispatch(
                     buildUserDocKeyFn(userEmail, getFriendEmail(chat.users))
                   );
+                  dispatch(chatSelectFn(index));
                   selectChat(index);
                 }}
               >

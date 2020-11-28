@@ -48,5 +48,12 @@ export const sendMsgFn = (docKey, userEmail, msg) => {
         createdAt: Date.now(),
       });
     dispatch({ type: ChatActionTypes.SEND_MESSAGE });
+    dispatch({ type: ChatActionTypes.CHAT_SELECTED, payload: 0 });
+  };
+};
+
+export const chatSelectFn = (chatIndex) => {
+  return (dispatch) => {
+    dispatch({ type: ChatActionTypes.CHAT_SELECTED, payload: chatIndex });
   };
 };

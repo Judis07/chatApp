@@ -4,12 +4,14 @@ const INITIAL_STATE = {
   chats: [],
   loading: false,
   error: false,
+  selectedChatIndex: null,
 };
 
 const chatsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ChatActionTypes.GET_CHATS:
       return {
+        ...state,
         chats: action.payload,
         loading: false,
         error: false,
@@ -29,6 +31,11 @@ const chatsReducer = (state = INITIAL_STATE, action) => {
     case ChatActionTypes.SEND_MESSAGE:
       return {
         ...state,
+      };
+    case ChatActionTypes.CHAT_SELECTED:
+      return {
+        ...state,
+        selectedChatIndex: action.payload,
       };
 
     default:

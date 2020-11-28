@@ -21,6 +21,11 @@ const ChatWindow = (props) => {
 
   const docKey = useSelector((state) => state.user.docKey);
   const userEmail = useSelector((state) => state.user.currentUser);
+  const chats = useSelector((state) => state.chats.chats);
+
+  const selectedChatIndex = useSelector(
+    (state) => state.chats.selectedChatIndex
+  );
 
   useEffect(() => {
     let chatView = document.getElementById('chatview-container');
@@ -50,10 +55,14 @@ const ChatWindow = (props) => {
   return (
     <div className="chatWindowContainer">
       <div className="chatScreenHeader">
-        {chat && (
+        {chats[selectedChatIndex] && (
           <div className="converstionWith">
             Your conversation with:{' '}
-            <strong>{chat.users.filter((user) => user !== userEmail)}</strong>
+            <strong>
+              {chats[selectedChatIndex].users.filter(
+                (user) => user !== userEmail
+              )}
+            </strong>
           </div>
         )}
 
@@ -65,8 +74,8 @@ const ChatWindow = (props) => {
       <div className="chatScreenContent" id="chatview-container">
         {newChatFormVisible ? (
           <div className={'chatConversationContainer'}>
-            {chat &&
-              chat.messages.map((msg, index) => {
+            {chats[selectedChatIndex] &&
+              chats[selectedChatIndex].messages.map((msg, index) => {
                 return (
                   <div
                     key={index}
