@@ -27,10 +27,7 @@ const SideBar = (props) => {
   };
 
   if (chats.length) {
-    const result = chats.sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-    );
-    console.log('my chats', result);
+    chats.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   }
 
   return (

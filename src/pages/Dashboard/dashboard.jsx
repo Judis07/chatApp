@@ -18,26 +18,6 @@ const Dashboard = (props) => {
   const [selectedChat, setSelectedChat] = useState(null);
   // const [chats, setChats] = useState([]);
 
-  // useEffect(() => {
-  //   auth.onAuthStateChanged(async (user) => {
-  //     if (!user) {
-  //       props.history.push('/login');
-  //     } else {
-  //       // await firestore
-  //       //   .collection('chats')
-  //       //   .where('users', 'array-contains', user.email)
-  //       //   .onSnapshot(async (res) => {
-  //       //     const userChats = res.docs.map((doc) => doc.data());
-  //       //     setEmail(user.email);
-  //       //     await setChats(userChats);
-  //       //   });
-  //       setEmail(user.email);
-  //       dispatch(getChatsFn());
-  //     }
-  //   });
-
-  // }, []);
-
   useEffect(() => {
     setEmail(userEmail);
     console.log('executing this ');

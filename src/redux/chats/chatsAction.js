@@ -63,3 +63,30 @@ export const chatSelectFn = (chatIndex) => {
     dispatch({ type: ChatActionTypes.CHAT_SELECTED, payload: chatIndex });
   };
 };
+
+export const createNewChat = (docKey, friendEmail, msg) => {
+  return (dispatch) => {
+    dispatch({ type: ChatActionTypes.NEW_CHAT });
+
+    const newChat = async () => {
+      await firestore
+        .collection('chats')
+        .doc(docKey)
+        .set({
+          receiverHasRead: false,
+          users: [auth.currentUser.email, friendEmail],
+          messages: [
+            {
+              message: msg,
+              sender: auth.currentUser.email,
+              timestamp: Date.now(),
+            },
+          ],
+          createdAt: Date.now(),
+        });
+    };
+
+    newChat();
+    dispatch({ type: ChatActionTypes.CHAT_SELECTED, payload: 0 });
+  };
+};

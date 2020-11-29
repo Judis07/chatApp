@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AsyncPaginate } from 'react-select-async-paginate';
 import { firestore, auth } from '../../firebase';
-import { sendMsgFn } from '../../redux/chats/chatsAction';
+import { sendMsgFn, createNewChat } from '../../redux/chats/chatsAction';
 import { buildUserDocKeyFn } from '../../redux/user/userAction';
 
 import './newChatForm.scss';
@@ -73,32 +73,15 @@ const NewChatForm = (props) => {
   };
 
   const chatExistsFn = async () => {
-    const dockey = buildDocKey();
-    const chat = await firestore.collection('chats').doc(dockey).get();
+    // const dockey = buildDocKey();
+    const chat = await firestore.collection('chats').doc(docKey).get();
 
     console.log(chat.exists);
     return chat.exists;
   };
 
-  const createChat = async () => {
-    const docKey = buildDocKey();
-
-    await firestore
-      .collection('chats')
-      .doc(docKey)
-      .set({
-        receiverHasRead: false,
-        users: [auth.currentUser.email, friendEmail],
-        messages: [
-          {
-            message: msgToFriend,
-            sender: auth.currentUser.email,
-            timestamp: Date.now(),
-          },
-        ],
-      });
-
-    selectChatFn(chats.length - 1);
+  const createChat = () => {
+    dispatch(createNewChat(docKey, friendEmail, msgToFriend));
   };
 
   const goToChat = async () => {
@@ -109,12 +92,7 @@ const NewChatForm = (props) => {
     );
 
     await selectChatFn(chats.indexOf(chat));
-    // sumbitMsgFn(msgToFriend);
     dispatch(sendMsgFn(docKey, userEmail, msgToFriend));
-    // console.log('selectedChat', selectedChat);
-    // sumbitMsg(msg);
-    // this.props.goToChatFn(this.buildDocKey(), this.state.messageToFriend);
-    console.log('chat exits so continuing');
   };
 
   const sendMsg = async () => {
@@ -128,9 +106,6 @@ const NewChatForm = (props) => {
       setMsgErr(true);
       setUserErr(false);
     } else {
-      console.log('friendEmail', friendEmail);
-      console.log('msgToFriend', msgToFriend);
-
       const chatExists = await chatExistsFn();
       chatExists ? goToChat() : createChat();
       setUserErr(false);
