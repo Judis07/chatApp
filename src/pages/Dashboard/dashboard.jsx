@@ -40,7 +40,8 @@ const Dashboard = (props) => {
 
   useEffect(() => {
     setEmail(userEmail);
-    dispatch(getChatsFn());
+    console.log('executing this ');
+    dispatch(getChatsFn(userEmail));
   }, []);
 
   // const newMsg = () => {

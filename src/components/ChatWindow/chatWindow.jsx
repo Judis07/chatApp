@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import EmptyChatWindow from '../EmptyChatWindow/emptyChatWindow';
 import { logOutUser } from '../../redux/user/userAction';
 import { sendMsgFn } from '../../redux/chats/chatsAction';
+import { buildUserDocKeyFn } from '../../redux/user/userAction';
 
 import './chatWindow.scss';
 
@@ -102,7 +103,17 @@ const ChatWindow = (props) => {
                 placeholder="Type your message.."
                 id="message-input"
                 onKeyUp={(e) => userTyping(e)}
-                onFocus={() => messageReadFn(selectedChat)}
+                onFocus={() => {
+                  messageReadFn(selectedChat);
+                  dispatch(
+                    buildUserDocKeyFn(
+                      userEmail,
+                      chats[selectedChatIndex].users.filter(
+                        (user) => user !== userEmail
+                      )[0]
+                    )
+                  );
+                }}
               />
             </div>
             <div className="sendBtn">

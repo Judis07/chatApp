@@ -158,7 +158,7 @@ const NewChatForm = (props) => {
             if (selectedOption) {
               console.log('this is the selected option', selectedOption.value);
               setFriendEmail(selectedOption.value);
-              // dispatch(buildUserDocKeyFn(userEmail, selectedOption.value));
+              dispatch(buildUserDocKeyFn(userEmail, selectedOption.value));
             } else {
               setFriendEmail('');
             }

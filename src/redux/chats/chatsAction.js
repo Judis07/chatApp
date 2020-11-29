@@ -14,14 +14,14 @@ export const errGettingChats = () => ({
   type: ChatActionTypes.ERROR_GETTING_CHAT,
 });
 
-export const getChatsFn = () => {
+export const getChatsFn = (userEmail) => {
   return (dispatch) => {
     dispatch(gettingChats());
-    auth.onAuthStateChanged(async (user) => {
+    const getData = async () => {
       try {
         await firestore
           .collection('chats')
-          .where('users', 'array-contains', user.email)
+          .where('users', 'array-contains', userEmail)
           .onSnapshot(async (res) => {
             const userChats = res.docs.map((doc) => doc.data());
             await dispatch(getChats(userChats));
@@ -29,7 +29,13 @@ export const getChatsFn = () => {
       } catch (err) {
         dispatch(errGettingChats());
       }
-    });
+    };
+
+    getData();
+
+    // auth.onAuthStateChanged(async (user) => {
+
+    // });
   };
 };
 
