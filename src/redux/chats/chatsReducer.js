@@ -18,12 +18,14 @@ const chatsReducer = (state = INITIAL_STATE, action) => {
       };
     case ChatActionTypes.GETTING_CHAT:
       return {
+        ...state,
         chats: [],
         loading: true,
         errror: false,
       };
     case ChatActionTypes.ERROR_GETTING_CHAT:
       return {
+        ...state,
         chats: [],
         loading: false,
         error: true,

@@ -9,7 +9,6 @@ import './chatWindow.scss';
 
 const ChatWindow = (props) => {
   const {
-    newChatFormVisible,
     chat,
     // userEmail,
     selectedChat,
@@ -73,7 +72,7 @@ const ChatWindow = (props) => {
       </div>
 
       <div className="chatScreenContent" id="chatview-container">
-        {newChatFormVisible ? (
+        {selectedChatIndex !== null ? (
           <div className={'chatConversationContainer'}>
             {chats[selectedChatIndex] &&
               chats[selectedChatIndex].messages.map((msg, index) => {
@@ -94,7 +93,7 @@ const ChatWindow = (props) => {
         )}
       </div>
 
-      {newChatFormVisible && (
+      {selectedChatIndex !== null && (
         <div className="chatScreenFooter">
           <div className="innerContainer">
             <div className="msgInput">
