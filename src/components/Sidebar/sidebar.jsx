@@ -12,7 +12,7 @@ const SideBar = (props) => {
     (state) => state.chats.selectedChatIndex
   );
 
-  const { chats, userEmail, selectChatFn } = props;
+  const { chats, loading, userEmail, selectChatFn } = props;
 
   const selectChat = (chatIndex) => {
     selectChatFn(chatIndex);
@@ -43,7 +43,16 @@ const SideBar = (props) => {
       <div className="chatList">
         {/* {console.log(filteredChat())} */}
         <div className="userName">You: {userEmail}</div>
-        {chats.length ? (
+
+        {loading && <LinearProgress />}
+
+        {!loading && chats.length === 0 && (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            No chats to display
+          </div>
+        )}
+
+        {chats.length > 0 &&
           chats.map((chat, index) => {
             const chatTime = new Date(chat.createdAt).toLocaleString();
             // console.log(chatTime);
@@ -82,10 +91,7 @@ const SideBar = (props) => {
                 )}
               </div>
             );
-          })
-        ) : (
-          <LinearProgress />
-        )}
+          })}
       </div>
     </div>
   );

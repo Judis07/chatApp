@@ -11,6 +11,7 @@ const Dashboard = (props) => {
   const dispatch = useDispatch();
 
   const chats = useSelector((state) => state.chats.chats);
+  const loading = useSelector((state) => state.chats.loading);
   const userEmail = useSelector((state) => state.user.currentUser);
 
   const [email, setEmail] = useState(null);
@@ -71,6 +72,7 @@ const Dashboard = (props) => {
     <div className="dashboardContainer">
       <SideBar
         chats={chats}
+        loading={loading}
         userEmail={email}
         selectedChat={selectedChat}
         selectChatFn={selectChatFn}
