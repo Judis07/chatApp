@@ -22,8 +22,11 @@ const Dashboard = (props) => {
   useEffect(() => {
     setEmail(userEmail);
     console.log('executing this ');
-    dispatch(getChatsFn(userEmail));
-  }, []);
+
+    if (userEmail) {
+      dispatch(getChatsFn(userEmail));
+    }
+  }, [dispatch, userEmail]);
 
   // const newMsg = () => {
   //   console.log('new msg btn clicked');
