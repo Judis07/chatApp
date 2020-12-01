@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { buildUserDocKeyFn } from '../../redux/user/userAction';
@@ -11,6 +12,14 @@ const SideBar = (props) => {
   const selectedChatIndex = useSelector(
     (state) => state.chats.selectedChatIndex
   );
+  useEffect(() => {
+    const chatListContainer = document.querySelector('.chatList');
+
+    if (chatListContainer) {
+      // chatListContainer.scrollTo(0, chatListContainer.scrollHeight);
+      chatListContainer.scrollTop = 0;
+    }
+  }, [selectedChatIndex]);
 
   const { chats, loading, userEmail, selectChatFn } = props;
 
