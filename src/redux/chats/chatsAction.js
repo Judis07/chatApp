@@ -90,3 +90,7 @@ export const createNewChat = (docKey, friendEmail, msg) => {
     dispatch({ type: ChatActionTypes.CHAT_SELECTED, payload: 0 });
   };
 };
+
+export const clearChatStoreFn = () => ({
+  type: ChatActionTypes.CLEAR_CHAT_STORE,
+});

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EmptyChatWindow from '../EmptyChatWindow/emptyChatWindow';
 import { logOutUser } from '../../redux/user/userAction';
-import { sendMsgFn } from '../../redux/chats/chatsAction';
+import { sendMsgFn, clearChatStoreFn } from '../../redux/chats/chatsAction';
 import { buildUserDocKeyFn } from '../../redux/user/userAction';
 
 import './chatWindow.scss';
@@ -66,7 +66,13 @@ const ChatWindow = (props) => {
           </div>
         )}
 
-        <div className="logOut" onClick={() => dispatch(logOutUser())}>
+        <div
+          className="logOut"
+          onClick={() => {
+            dispatch(clearChatStoreFn());
+            dispatch(logOutUser());
+          }}
+        >
           Log Out
         </div>
       </div>

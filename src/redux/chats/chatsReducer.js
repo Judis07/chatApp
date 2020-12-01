@@ -39,6 +39,8 @@ const chatsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         selectedChatIndex: action.payload,
       };
+    case ChatActionTypes.CLEAR_CHAT_STORE:
+      return (state = INITIAL_STATE);
 
     default:
       return state;
