@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector, use } from 'react-redux';
 
 import ChatWindow from '../../components/ChatWindow/chatWindow';
 import SideBar from '../../components/Sidebar/sidebar';
@@ -19,14 +19,20 @@ const Dashboard = (props) => {
   const [selectedChat, setSelectedChat] = useState(null);
   // const [chats, setChats] = useState([]);
 
+  const stableDispatch = useCallback(dispatch, [dispatch]);
+
   useEffect(() => {
     setEmail(userEmail);
     console.log('executing this ');
 
-    if (userEmail) {
-      dispatch(getChatsFn(userEmail));
-    }
-  }, [dispatch, userEmail]);
+    const getChats = () => {
+      if (userEmail) {
+        stableDispatch(getChatsFn(userEmail));
+      }
+    };
+
+    getChats();
+  }, [stableDispatch, userEmail]);
 
   // const newMsg = () => {
   //   console.log('new msg btn clicked');
@@ -55,9 +61,9 @@ const Dashboard = (props) => {
       firestore.collection('chats').doc(docKey).update({
         receiverHasRead: true,
       });
-      // console.log('friend msg');
+      console.log('friend msg', isUserTheSender(index));
     } else {
-      // console.log('latest msg was of me');
+      console.log('latest msg was of me');
     }
   };
 
