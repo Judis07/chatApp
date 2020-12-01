@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector, use } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ChatWindow from '../../components/ChatWindow/chatWindow';
 import SideBar from '../../components/Sidebar/sidebar';
